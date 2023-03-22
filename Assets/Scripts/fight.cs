@@ -21,11 +21,11 @@ public class fight : MonoBehaviour
         {
             if (sr.flipX)
             {
-                currentCollision.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100 , 100));
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-400 , 100);
             }
             else if (!sr.flipX)
             {
-                currentCollision.GetComponent<Rigidbody2D>().AddForce(new Vector2(100 , 100));
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(400 , 100);
             }
         }
     }
