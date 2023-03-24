@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private bool dying = false;
+    [SerializeField] private healthBar healthBar;
+    [SerializeField] private Rigidbody2D enemrb;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Collider2D left;
     [SerializeField] private Collider2D right;
@@ -12,29 +15,36 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpStrength= 10f;
+    public int maxHealth = 100;
+    public float currentHealth;
     private Vector2 move;
     public Camera camera1;
     public Camera camera2;
 
     void Start()
     {
+        healthBar.SetMaxHealth(maxHealth);
+        currentHealth = maxHealth;
         Time.timeScale = 0f;
         camera1.enabled = false;
         camera2.enabled = true;
     }
     void cameraShow()
     {
+        healthBar.SetMaxHealth(maxHealth);
+        enemrb.velocity = new Vector2(0f, 0f);
         Time.timeScale = 1f;
         camera1.enabled = true;
         camera2.enabled = false;
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        cameraShow();
+
         if (context.performed && grounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
         }
+        cameraShow();
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -42,6 +52,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        healthBar.SetPlayerHealth((int)currentHealth);
         if (Input.GetKeyDown(KeyCode.C))
         {
             //Swap enabled state to opposite one provided that only is on at a time
@@ -62,11 +73,22 @@ public class PlayerController : MonoBehaviour
         }
         rb.velocity = new Vector2(move.x * moveSpeed, rb.velocity.y);
     }
+    void FixedUpdate()
+    {
+        if(dying)
+        {
+            currentHealth -= 1;
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Ground")
         {
             grounded = true;
+        }
+        else if (other.gameObject.tag == "Enemy")
+        {
+            dying = true;
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -74,6 +96,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             grounded = false;
+        }
+        else if (other.gameObject.tag == "Enemy")
+        {
+            dying = false;
         }
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class fight : MonoBehaviour
 {
+    [SerializeField] private healthBar healthBar;
+    private float cooldown = 0f;
     [SerializeField] private SpriteRenderer sr;
     public GameObject currentCollision;
     [SerializeField] private GameObject left;
@@ -19,13 +21,21 @@ public class fight : MonoBehaviour
     {
         if (context.performed && currentCollision != null)
         {
-            if (sr.flipX)
+            if(cooldown > 0)
             {
-                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-400 , 100);
+                return;
+            }
+            else if (sr.flipX)
+            {
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-5 , 5);
+                currentCollision.GetComponent<pushingIsntNice>().health -= 10;
+                cooldown = 0.75f;
             }
             else if (!sr.flipX)
             {
-                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(400 , 100);
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(5 , 5);
+                currentCollision.GetComponent<pushingIsntNice>().health -= 10;
+                cooldown = 0.75f;
             }
         }
     }
@@ -33,13 +43,30 @@ public class fight : MonoBehaviour
     {
         if (context.performed && currentCollision != null)
         {
-            Debug.Log("Fight2");
+            if(cooldown > 0)
+            {
+                return;
+            }
+            else if (sr.flipX)
+            {
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-5 , 7);
+                currentCollision.GetComponent<pushingIsntNice>().health -= 20;
+                cooldown = 1.5f;
+            }
+            else if (!sr.flipX)
+            {
+                currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(5 , 7);
+                currentCollision.GetComponent<pushingIsntNice>().health -= 20;
+                cooldown = 1.5f;
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        healthBar.SetCoolDown(cooldown);
+        cooldown -= Time.deltaTime;
         transform.position = player.position;
     }
 }

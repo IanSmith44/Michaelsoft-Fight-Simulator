@@ -4,38 +4,50 @@ using UnityEngine;
 
 public class pushingIsntNice : MonoBehaviour
 {
+    private bool dead = false;
+    [SerializeField] private healthBar healthBar;
+    public int health = 100;
+    [SerializeField] private int maxHealth = 100;
     [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float maxSpeed = 3f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(player.transform.position.x > transform.position.x)
+        if(health <= 0)
         {
-            rb.velocity = new Vector2(2, rb.velocity.y);
+            dead = true;
         }
-        else
-        {
-            rb.velocity = new Vector2(-2, rb.velocity.y);
-        }
+        healthBar.SetEnemyHealth(health);
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void FixedUpdate()
     {
-        if (collision.gameObject.tag == "Player")
+        if(!dead)
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-    }
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            rb.constraints = RigidbodyConstraints2D.None;
+            if(rb.velocity.x > maxSpeed && player.transform.position.x > transform.position.x)
+            {
+                rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
+            }
+            else if(rb.velocity.x < -maxSpeed && player.transform.position.x < transform.position.x)
+            {
+                rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
+            }
+            if(player.transform.position.x > transform.position.x)
+            {
+                rb.AddForce(new Vector2(speed, 0f));
+            }
+            else if(player.transform.position.x < transform.position.x)
+            {
+                rb.AddForce(new Vector2(-speed, 0f));
+            }
         }
     }
 }
