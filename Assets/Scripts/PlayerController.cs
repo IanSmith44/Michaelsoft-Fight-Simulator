@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool dying = false;
+    public bool dying = false;
     [SerializeField] private healthBar healthBar;
     [SerializeField] private Rigidbody2D enemrb;
     [SerializeField] private SpriteRenderer sr;
@@ -86,20 +86,12 @@ public class PlayerController : MonoBehaviour
         {
             grounded = true;
         }
-        else if (other.gameObject.tag == "Enemy")
-        {
-            dying = true;
-        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Ground")
         {
             grounded = false;
-        }
-        else if (other.gameObject.tag == "Enemy")
-        {
-            dying = false;
         }
     }
 }
