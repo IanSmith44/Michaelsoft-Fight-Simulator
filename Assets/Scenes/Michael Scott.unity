@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 3
   m_WholeNumbers: 0
-  m_Value: 1.5
+  m_Value: 3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2509,6 +2509,7 @@ MonoBehaviour:
   currentHealth: 0
   camera1: {fileID: 519420031}
   camera2: {fileID: 1536838226}
+  fightScrip: {fileID: 742793744}
 --- !u!114 &1482264338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,7 +2617,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0015523434, y: -0.48468637}
+  m_Offset: {x: -0.023961544, y: -0.48468637}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2627,7 +2628,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0039144, y: 0.056616664}
+  m_Size: {x: 0.81145954, y: 0.056616664}
   m_EdgeRadius: 0
 --- !u!70 &1482264341
 CapsuleCollider2D:

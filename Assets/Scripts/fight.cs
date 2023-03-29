@@ -27,7 +27,7 @@ public class fight : MonoBehaviour
                 coolingdown = true;
                 return;
             }
-            else if (sr.flipX && cooldown <= 1f && !coolingdown)
+            else if (sr.flipX && cooldown <= 2.5f && !coolingdown)
             {
                 currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-5 , 5);
                 currentCollision.GetComponent<pushingIsntNice>().health -= 10;
@@ -37,7 +37,7 @@ public class fight : MonoBehaviour
                     coolingdown = true;
                 }
             }
-            else if (!sr.flipX && cooldown <= 1f && !coolingdown)
+            else if (!sr.flipX && cooldown <= 2.5f && !coolingdown)
             {
                 currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(5 , 5);
                 currentCollision.GetComponent<pushingIsntNice>().health -= 10;
@@ -62,7 +62,7 @@ public class fight : MonoBehaviour
             {
                 return;
             }
-            else if (sr.flipX && cooldown <= 0f)
+            else if (sr.flipX && cooldown <= 2.25f && !coolingdown)
             {
                 currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(-5 , 7);
                 currentCollision.GetComponent<pushingIsntNice>().health -= 20;
@@ -72,7 +72,7 @@ public class fight : MonoBehaviour
                     coolingdown = true;
                 }
             }
-            else if (!sr.flipX && cooldown <= 0f)
+            else if (!sr.flipX && cooldown <= 2.25f && !coolingdown)
             {
                 currentCollision.GetComponent<Rigidbody2D>().velocity = new Vector2(5 , 7);
                 currentCollision.GetComponent<pushingIsntNice>().health -= 20;
@@ -88,6 +88,10 @@ public class fight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(cooldown >= 3f)
+        {
+            coolingdown = true;
+        }
         if(cooldown <= 0f)
         {
             cooldown = 0f;

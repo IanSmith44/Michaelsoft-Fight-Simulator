@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
     public Camera camera1;
     public Camera camera2;
+    [SerializeField] private fight fightScrip;
 
     void Start()
     {
@@ -42,7 +43,14 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed && grounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            if(!fightScrip.coolingdown)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpStrength / 2);
+            }
         }
         cameraShow();
     }
@@ -71,7 +79,14 @@ public class PlayerController : MonoBehaviour
             left.enabled = false;
             right.enabled = true;
         }
-        rb.velocity = new Vector2(move.x * moveSpeed, rb.velocity.y);
+        if(!fightScrip.coolingdown)
+        {
+            rb.velocity = new Vector2(move.x * moveSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(move.x * (moveSpeed / 2), rb.velocity.y);
+        }
     }
     void FixedUpdate()
     {
