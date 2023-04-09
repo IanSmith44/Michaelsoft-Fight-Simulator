@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private bool onDead = false;
     public bool dying = false;
     [SerializeField] private healthBar healthBar;
     [SerializeField] private Rigidbody2D enemrb;
@@ -56,10 +57,22 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        move = context.ReadValue<Vector2>();
+        if(!onDead)
+        {
+            move = context.ReadValue<Vector2>();
+        }
+        else{
+            move = Vector2.zero;
+        }
     }
     void Update()
     {
+        if(currentHealth <= 0 && !onDead)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.angularVelocity = 3500f;
+            onDead = true;
+        }
         healthBar.SetPlayerHealth((int)currentHealth);
         if (Input.GetKeyDown(KeyCode.C))
         {
