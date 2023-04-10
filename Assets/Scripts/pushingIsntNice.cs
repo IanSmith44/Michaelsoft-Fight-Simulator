@@ -12,6 +12,7 @@ public class pushingIsntNice : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 2f;
     [SerializeField] private float maxSpeed = 3f;
+    [SerializeField] private SpriteRenderer sr;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,14 @@ public class pushingIsntNice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(rb.velocity.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else if(rb.velocity.x > 0)
+        {
+            sr.flipX = false;
+        }
         if(health <= 0)
         {
             dead = true;
