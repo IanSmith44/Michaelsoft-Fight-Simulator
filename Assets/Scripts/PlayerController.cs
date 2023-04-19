@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private deathTyper deathTyper;
     private bool onDead = false;
     public bool dying = false;
     [SerializeField] private healthBar healthBar;
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.angularVelocity = 3500f;
             onDead = true;
+            deathTyper.onDie();
         }
         healthBar.SetPlayerHealth((int)currentHealth);
         if (Input.GetKeyDown(KeyCode.C))
