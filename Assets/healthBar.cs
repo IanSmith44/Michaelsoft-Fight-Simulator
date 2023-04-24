@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class healthBar : MonoBehaviour
 {
@@ -26,5 +27,9 @@ public class healthBar : MonoBehaviour
     public void SetCoolDown(float health)
     {
         cSlider.value = health;
+    }
+    public void onExit()
+    {
+        SceneManager.LoadScene(0);
     }
 }
