@@ -16,7 +16,7 @@ public class enemyFollowb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
         transform.position = enemy.transform.position;
     }
     void OnTriggerEnter2D(Collider2D other)

@@ -68,6 +68,10 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if(transform.position.y <= -17)
+        {
+            currentHealth = -10f;
+        }
         if(currentHealth <= 0 && !onDead)
         {
             rb.constraints = RigidbodyConstraints2D.None;

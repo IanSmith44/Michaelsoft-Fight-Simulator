@@ -26,9 +26,10 @@ public class deathTyper : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log(timing);
         if(timing)
         {
-            timer -= Time.deltaTime;
+            timer -= Time.unscaledDeltaTime;
             if(timer <= time - timb)
             {
                 Y.SetActive(true);
